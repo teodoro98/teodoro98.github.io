@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+      /* tema prima del primo disegno: scelta salvata, altrimenti il sistema, altrimenti chiaro (design/GUIDA.md) */
+      (() => { let t = null; try { t = localStorage.getItem('tema'); } catch (_) {} document.documentElement.dataset.theme = t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); document.documentElement.classList.add('js'); })();
+    </script><title>Nove guasti in dieci giorni: cosa è successo a GitHub · VetrinaTeo</title><meta name="description" content="Dal 26 ottobre al 4 novembre errori e ritardi su Git, API, Actions e webhook, con le cause pubblicate da GitHub e i consigli della documentazione."><link rel="canonical" href="https://teodoro98.github.io/analisi/github-2026-11/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/icone/icone.css"><link rel="alternate" hreflang="it" href="https://teodoro98.github.io/analisi/github-2026-11/"><link rel="alternate" hreflang="en" href="https://teodoro98.github.io/en/analysis/github-2026-11/"><link rel="alternate" hreflang="x-default" href="https://teodoro98.github.io/analisi/github-2026-11/"><meta property="og:site_name" content="VetrinaTeo"><meta property="og:type" content="article"><meta property="og:title" content="Nove guasti in dieci giorni: cosa è successo a GitHub"><meta property="og:description" content="Dal 26 ottobre al 4 novembre errori e ritardi su Git, API, Actions e webhook, con le cause pubblicate da GitHub e i consigli della documentazione."><meta property="og:url" content="https://teodoro98.github.io/analisi/github-2026-11/"><meta property="og:image" content="https://teodoro98.github.io/og-default.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="it_IT"><meta property="og:locale:alternate" content="en_GB"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Nove guasti in dieci giorni: cosa è successo a GitHub"><meta name="twitter:description" content="Dal 26 ottobre al 4 novembre errori e ritardi su Git, API, Actions e webhook, con le cause pubblicate da GitHub e i consigli della documentazione."><meta name="twitter:image" content="https://teodoro98.github.io/og-default.png"><link rel="stylesheet" href="/_astro/Base.Dn4wFJ9z.css"><link rel="stylesheet" href="/_astro/AnalysisPage.hhMsGEsR.css"></head><body><div class="fondo" aria-hidden="true"><div class="f-grafo"></div></div><a class="skip" href="#main">Vai al contenuto</a><nav class="nav" aria-label="Principale"><div class="wrap"><div class="inizio"><a class="marchio" href="/" aria-label="Teodoro Corbo, home"><span class="mk">TC</span></a><a class="ritorno" href="/#analisi" aria-label="Torna a tutte le analisi"><i class="ph ph-arrow-left"></i><span>Analisi</span></a></div><ol class="tappe"><li><a href="#errori"><span class="st"><i class="ph-bold ph-check"></i></span><b>Errori</b></a></li><li><a href="#giorno"><span class="st"><i class="ph-bold ph-check"></i></span><b>Il giorno</b></a></li><li><a href="#guasti"><span class="st"><i class="ph-bold ph-check"></i></span><b>Dieci giorni</b></a></li><li><a href="#caso"><span class="st"><i class="ph-bold ph-check"></i></span><b>27 ottobre</b></a></li><li><a href="#tempesta"><span class="st"><i class="ph-bold ph-check"></i></span><b>30 ottobre</b></a></li><li><a href="#anno"><span class="st"><i class="ph-bold ph-check"></i></span><b>Un anno</b></a></li><li><a href="#attese"><span class="st"><i class="ph-bold ph-check"></i></span><b>Senza causa</b></a></li><li><a href="#consigli"><span class="st"><i class="ph-bold ph-check"></i></span><b>Consigli</b></a></li><li><a href="#fonti"><span class="st"><i class="ph-bold ph-check"></i></span><b>Fonti</b></a></li><li><a href="#pdf"><span class="st"><i class="ph-bold ph-check"></i></span><b>PDF</b></a></li></ol><div class="tappe-tel" aria-hidden="true"><div class="pp"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span data-inizio="inizio" data-fine="fine">inizio</span></div><div class="attrezzi"><button class="tema" type="button" aria-pressed="false" aria-label="Tema scuro"><i class="ph ph-sun"></i><i class="ph ph-moon"></i></button><nav class="lingua" aria-label="Lingua"><a href="/analisi/github-2026-11/" hreflang="it" aria-current="page">it</a><a href="/en/analysis/github-2026-11/" hreflang="en" lang="en" aria-label="English">en</a></nav></div></div></nav><main id="main"><div class="wrap"><header class="testata"><h1 data-r style="--d:1">Nove guasti in dieci giorni: cosa è successo a GitHub</h1><p class="dek" data-r style="--d:2">Dal 26 ottobre al 4 novembre errori e ritardi su Git, API, Actions e webhook, con le cause pubblicate da GitHub e i consigli della documentazione.</p><div class="chi" data-r style="--d:3"><span class="av"><img src="/c/profilo/foto.webp" alt=""></span><div><b>Teodoro Corbo</b><span><time datetime="2026-11-05">5 novembre 2026</time></span></div></div></header></div><div class="wrap stretta"><section class="intro"><div class="prosa"><p data-r="">La mattina del 4 novembre ci chiamano di corsa perché le pipeline non partono. Git risponde «Permission denied», e i
+primi sospettati siamo noi, con le nostre chiavi e i nostri permessi. Dopo i controlli resta un solo sospettato.
+Sulla status page di GitHub c’è un incidente su Git, API, issue, pull request e Actions, aperto verso le 11 e chiuso
+verso le 13. Per quelle due ore le nostre pipeline restano ferme.</p><p data-r="">Quel guasto è uno dei nove. Nel sondaggio di Stack Overflow del 2025, 8 sviluppatori su 10 tra chi ha risposto dicono
+di usare GitHub, e nell’ultimo anno, dice l’azienda, Actions ha eseguito in media 124 milioni di job al giorno. Per sette dei nove
+guasti la piattaforma non ha ancora pubblicato una causa.</p></div><div class="numeri" data-r="">
+<div class="num rosso"><b>3</b><span>guasti il 4 novembre</span></div>
+<div class="num"><b>294</b><span>incidenti in un anno</span></div>
+<div class="num"><b>2 su 9</b><span>spiegati da GitHub</span></div>
+</div></section><section id="errori" class="sez"><h2 data-r="" id="lo-stesso-permission-denied-per-altri-sviluppatori">Lo stesso «Permission denied» per altri sviluppatori</h2><div class="prosa"><p data-r="">Un minuto dopo l’apertura dell’incidente, su Hacker News è comparsa la discussione «Tell HN: GitHub Is Down». Un’altra
+discussione ha superato i cento commenti. Gli utenti raccontavano clone e fetch che riuscivano a intermittenza, e su SSH Git rispondeva così.</p></div><pre class="codice"><code><span class="giu">$ git pull</span>
+<span class="no">git@github.com: Permission denied (publickey).</span>
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.</code></pre><div class="prosa"><p data-r="">Il messaggio chiede di controllare i permessi e che il repository esista. C’è chi ha pensato a una chiave SSH violata o
+a un attacco. Un utente ha scritto che anche i suoi deploy su CircleCI erano fermi, perché non riuscivano a scaricare il codice.</p><p data-r="">Sul forum della piattaforma, GitHub Community, una discussione aperta pochi minuti dopo l’inizio dell’incidente ha
+raccolto una ventina di risposte in due ore. Succedeva con chiavi RSA, Ed25519 ed ECDSA, e la stessa chiave a
+volte passava e a volte riceveva «Permission denied». Verso mezzogiorno un utente raccontava che non riusciva a fare push «da due ore» e che adesso
+funzionava.</p></div></section><section id="giorno" class="sez"><h2 data-r="" id="altri-due-guasti-nel-pomeriggio-e-in-serata">Altri due guasti nel pomeriggio e in serata</h2><div class="prosa"><p data-r="">Verso le 17 la status page ha segnalato un secondo incidente, su Actions, Pages e webhook: gli eventi che fanno partire
+Actions avevano un problema, e lo stato dei job poteva arrivare in ritardo. Poco dopo le 18, nella discussione ufficiale
+dell’incidente sul forum, GitHub l’ha dato per risolto. Meno di quaranta minuti dopo è comparso un altro incidente su
+Actions, con la stessa descrizione, chiuso alle 19:16. Nella stessa discussione, dopo l’annuncio, tre utenti
+segnalavano che il problema c’era ancora.</p></div></section><section id="guasti" class="sez"><h2 data-r="" id="ogni-servizio-colpito-almeno-due-volte">Ogni servizio colpito almeno due volte</h2><div class="prosa"><p data-r="">I nove guasti cadono in cinque giorni. Actions è colpito cinque volte, gli altri servizi almeno due. La piattaforma ne
+classifica come gravi più della metà. Il primo dei nove, il 26 ottobre, è comparso sulla status page solo a guasto finito.</p><p data-r="">Il 30 ottobre Android Authority ha scritto, in base alle segnalazioni su Downdetector, che era la seconda volta in
+giornata che GitHub andava giù. Su Hacker News la discussione sul secondo guasto ha raccolto 62 commenti, tra cui «My
+Actions are stuck waiting», le mie Actions sono ferme in attesa.</p></div><div class="notte" data-r="">
+<div class="giorni" aria-hidden="true">
+<span data-mese="ott"><i class="m" style="--k:0"></i><b>26</b></span>
+<span><i class="m" style="--k:1"></i><b>27</b></span>
+<span><b>28</b></span>
+<span><b>29</b></span>
+<span><i class="m r" style="--k:2"></i><i class="m r" style="--k:3"></i><b>30</b></span>
+<span><b>31</b></span>
+<span data-mese="nov"><b>1</b></span>
+<span><b>2</b></span>
+<span><i class="m" style="--k:4"></i><i class="m" style="--k:5"></i><b>3</b></span>
+<span><i class="m r" style="--k:6"></i><i class="m r" style="--k:7"></i><i class="m r" style="--k:8"></i><b>4</b></span>
+</div>
+<ol class="registro">
+<li><span class="ora">26/10</span><span>dalle 18:59 alle 19:40: API lente, compresi i controlli delle pull request, e parti di Actions, issue e pull request. Alcune richieste scadono.</span></li>
+<li><span class="ora">27/10</span><span>dalle 07:55 alle 09:01: <b>404 sbagliati</b> a una parte delle richieste delle GitHub App, per repository che esistono.</span></li>
+<li class="r"><span class="ora">30/10</span><span>dalle 15:21 alle 15:30: una raffica di errori su molti servizi.</span></li>
+<li class="r"><span class="ora">30/10</span><span>dalle 18:50 alle 19:32: Actions, Pages e webhook in ritardo.</span></li>
+<li><span class="ora">3/11</span><span>dalle 14:25 alle 14:56: API e issue.</span></li>
+<li><span class="ora">3/11</span><span>dalle 21:57 alle 23:41: operazioni Git lente.</span></li>
+<li class="r"><span class="ora">4/11</span><span>dalle 10:49 alle 12:50: Git, API, issue, pull request e Actions.</span></li>
+<li class="r"><span class="ora">4/11</span><span>dalle 17:05 alle 18:01: Actions, Pages e webhook.</span></li>
+<li class="r"><span class="ora">4/11</span><span>dalle 18:40 alle 19:16: Actions.</span></li>
+</ol>
+</div><p class="nota" data-r="">In rosso i guasti classificati gravi.</p></section><section id="caso" class="sez"><h2 data-r="" id="il-27-ottobre-una-migrazione-e-una-pulizia-si-sono-sovrapposte">Il 27 ottobre una migrazione e una pulizia si sono sovrapposte</h2><div class="prosa"><p data-r="">Le GitHub App sono le applicazioni che lavorano sulla piattaforma con un token proprio. Per circa un’ora, in media
+poco più di una su cento delle loro operazioni Git ha ricevuto un 404, il codice di «non trovato», su repository che
+esistevano. Per la guida di GitHub, un
+repository «non trovato» vuol dire che non esiste o che non si hanno i permessi per vederlo.</p><p data-r="">Poco prima delle 6 un job di pulizia ha cominciato a cancellare i record di installazione delle GitHub App. Intanto
+sette tabelle traslocavano tra due cluster MySQL, uno in Virginia e uno nella regione Central US di Azure. Azure è il
+cloud di Microsoft, che possiede GitHub dal 2018. La pulizia ha fatto ritardare la copia dei dati tra i due cluster, fino a
+un’ora al picco. Quando le letture sono passate al cluster nuovo, verso le 8, sono cominciati i 404 sbagliati.</p></div><div class="notte" data-r="">
+<div class="scala" aria-hidden="true">
+<div class="asse"></div>
+<span class="t" style="--x:0">05:00</span><span class="t" style="--x:20">06:00</span><span class="t" style="--x:40">07:00</span><span class="t" style="--x:60">08:00</span><span class="t" style="--x:80">09:00</span>
+<i class="m" style="--x:14.67;--k:0"></i><i class="m" style="--x:45.67;--k:1"></i><i class="m r forte" style="--x:58.33;--k:2"></i><i class="m" style="--x:67;--k:3"></i><i class="m v" style="--x:80.33;--k:4"></i>
+</div>
+<ol class="registro">
+<li><span class="ora">05:44</span><span>parte il job di pulizia, mentre è in corso il trasloco delle tabelle.</span></li>
+<li><span class="ora">07:17</span><span>il job finisce, con circa 59 milioni di record cancellati.</span></li>
+<li class="r"><span class="ora">07:55</span><span>le letture passano al cluster nuovo e partono i <b>404 sbagliati</b>.</span></li>
+<li><span class="ora">08:21</span><span>il passaggio delle letture è completo.</span></li>
+<li class="v"><span class="ora">09:01</span><span>passano anche le scritture: fine dell'impatto.</span></li>
+</ol>
+</div><blockquote class="citazione" data-r=""><p lang="en">«Customer impact began, but was not detected.»</p><p class="trad">L'impatto sui clienti era cominciato, ma non è stato rilevato.</p><cite>GitHub, resoconto del 27 ottobre</cite></blockquote><div class="prosa"><p data-r="">Sulla status page il guasto è comparso la sera, più di dodici ore dopo, con impatto «nessuno». I rimedi annunciati
+sono due: niente più job di pulizia durante le migrazioni, e il passaggio a un cluster nuovo si bloccherà quando la
+copia è in ritardo.</p></div></section><section id="tempesta" class="sez"><h2 data-r="" id="il-30-ottobre-i-tentativi-ripetuti-hanno-saturato-un-gateway">Il 30 ottobre i tentativi ripetuti hanno saturato un gateway</h2><div class="prosa"><p data-r="">In serata Actions, Pages e webhook sono andati in ritardo per una quarantina di
+minuti. Era in corso una manutenzione su un gateway di rete che collega un servizio di Actions ai
+cluster Redis in Azure Central US. Il client Redis del servizio ha ritentato le connessioni in modo aggressivo, in
+quella che GitHub chiama una tempesta di connessioni. Il gateway si è saturato e circa il 90% dei tentativi di connessione falliva.
+Hanno avuto problemi anche gli altri servizi che condividevano lo stesso percorso di rete.</p><p data-r="">Non è la prima volta. Da agosto i tentativi ripetuti compaiono in quattro resoconti, tra le cause di un guasto o tra ciò che lo ha
+peggiorato.</p></div><ul class="schede" data-r="">
+<li><b>17 agosto</b><span>7 ore e 47 minuti di errori su web e API. I load balancer del datacenter di GitHub in Central US si saturano, e i nuovi tentativi peggiorano le cose. Ne hanno scritto InfoWorld e BleepingComputer.</span></li>
+<li><b>13 settembre</b><span>un ciclo di nuovi tentativi sulla creazione dei token continua a rimandare scritture che falliscono.</span></li>
+<li><b>19 ottobre</b><span>un servizio di Actions perde le connessioni alla cache e le ritenta da tutti i server insieme.</span></li>
+<li><b>30 ottobre</b><span>il client Redis satura il gateway.</span></li>
+</ul><div class="prosa"><p data-r="">Ogni volta, tra i rimedi, c’è un intervento sui tentativi ripetuti. Dopo il 30 ottobre l’azienda dice di averli già ridotti.
+Ora lavora a pause che si allungano a ogni tentativo, con una parte casuale, ad attese più brevi prima di dare per
+fallita una connessione e a un tetto ai tentativi.</p></div></section><section id="anno" class="sez"><h2 data-r="" id="un-anno-a-25-incidenti-al-mese">Un anno a 25 incidenti al mese</h2><div class="prosa"><p data-r="">Nell’ultimo anno gli incidenti pubblicati, compresi quelli di Copilot e Dependabot, sono 294. Il salto è arrivato
+in inverno, e da aprile il conto resta intorno ai 25 al mese, tranne settembre. Nei dieci giorni dal 26 ottobre, contati allo stesso
+modo, sono 14: 1,4 al giorno contro 0,8 nell’anno.</p></div><figure class="barre" data-r="" style="--max:37"><ol>
+<li class="su" style="--v:15"><i></i><b>15</b><span>dic</span></li>
+<li style="--v:25"><i></i><b>25</b><span>gen</span></li>
+<li class="su" style="--v:37"><i></i><b>37</b><span>feb</span></li>
+<li style="--v:32"><i></i><b>32</b><span>mar</span></li>
+<li style="--v:27"><i></i><b>27</b><span>apr</span></li>
+<li style="--v:22"><i></i><b>22</b><span>mag</span></li>
+<li style="--v:23"><i></i><b>23</b><span>giu</span></li>
+<li style="--v:26"><i></i><b>26</b><span>lug</span></li>
+<li style="--v:27"><i></i><b>27</b><span>ago</span></li>
+<li style="--v:14"><i></i><b>14</b><span>set</span></li>
+<li class="su" style="--v:25"><i></i><b>25</b><span>ott</span></li>
+<li class="media" style="--v:25"><span>media 25</span></li>
+</ol><figcaption>Incidenti al mese sulla status page di GitHub, da dicembre 2025 a ottobre 2026.</figcaption></figure><div class="prosa"><p data-r="">Ad aprile il CTO, Vlad Fedorov, ha scritto sul blog che dalla seconda metà di dicembre 2025 il lavoro fatto con gli
+agenti di intelligenza artificiale è cresciuto di colpo, e che l’azienda ora progetta per una scala trenta volte
+quella attuale, con la disponibilità al primo posto. Una crescita così, spiegava, non mette sotto sforzo un sistema
+alla volta: a grande scala le piccole inefficienze si sommano, e i tentativi ripetuti moltiplicano il traffico.</p><p data-r="">A maggio LeadDev si chiedeva «What’s gone wrong at GitHub?», cosa è andato storto, e raccontava che Zig era passato a Codeberg e che Mitchell Hashimoto aveva annunciato l’addio del suo progetto Ghostty alla piattaforma.</p><p data-r="">Il 28 ottobre, alla conferenza Universe, l’azienda ha detto di aver aggiunto quest’anno 4 milioni di core e 160
+petabyte di storage, e conta di finire all’inizio del prossimo anno il passaggio a più regioni di Azure. Il rapporto
+Octoverse, uscito lo stesso giorno, conta che a settembre oltre il 40% delle pull request cominciava da un agente. Per The Register la crescita aveva
+colto la piattaforma impreparata e portato a una serie di interruzioni.</p></div></section><section id="attese" class="sez"><h2 data-r="" id="le-cause-che-github-ha-promesso">Le cause che GitHub ha promesso</h2><div class="prosa"><p data-r="">Chiudendo i sette guasti senza spiegazione, l’azienda ha promesso sulla status page l’analisi dettagliata della causa, appena sarà pronta. Per
+la raffica di errori del pomeriggio del 30 ottobre, durante l’indagine, aveva indicato «un componente temporaneamente
+sovraccarico».</p></div><ul class="attese" data-r="">
+<li><span><b>Le cause dei sette guasti</b>: 26 ottobre, pomeriggio del 30 ottobre, 3 e 4 novembre.</span></li>
+<li><span><b>Il report di ottobre</b>, che esce ogni mese sul blog. Quello di settembre è uscito il 14 ottobre.</span></li>
+</ul></section><section id="consigli" class="sez"><h2 data-r="" id="cosa-consiglia-la-documentazione">Cosa consiglia la documentazione</h2><div class="prosa"><p data-r="">Per le automazioni che dipendono dalla piattaforma, la documentazione di GitHub e quella di Git dicono
+cosa fare.</p></div><ol class="lezioni" data-r="">
+<li><span><b>Riprovare con pause e con un limite</b>Quando le richieste vengono limitate, vanno rispettati <code>retry-after</code> e <code>x-ratelimit-reset</code>. Se mancano, si aspetta almeno un minuto e poi sempre di più, con un numero massimo di tentativi e le richieste in serie. Git riprova da solo soltanto dopo una risposta 429, «troppe richieste», e solo se lo si configura con <code>http.maxRetries</code>, che di default è zero; per gli altri errori la sua documentazione non ha opzioni per riprovare.</span></li>
+<li><span><b>Rimandare i webhook persi</b>Un webhook fallito non viene rimandato da solo: va rimandato a mano o con uno script che usa l'API di redelivery. Ai webhook si risponde entro 10 secondi, e il contenuto si lavora in coda.</span></li>
+<li><span><b>Leggere un 404 con prudenza</b>Se una risorsa interrogata a intervalli risponde 404 più volte, non va richiesta a ogni giro. Prima si controlla che il 404 non dipenda da autenticazione o permessi; poi si aspetta molto di più tra un controllo e l'altro, o si ricontrolla solo quando c'è motivo di credere che la risorsa ora esista.</span></li>
+<li><span><b>Tenere una copia del codice in casa</b>Git permette di tenere un mirror interno, con <code>git clone --mirror</code> aggiornato da <code>git remote update</code>, e di far leggere le automazioni da lì con <code>url.&#x3C;base>.insteadOf</code>.</span></li>
+<li><span><b>Aggiornare i client SSH prima del 9 dicembre</b>Quel giorno la piattaforma farà una prova di spegnimento della firma <code>ssh-rsa</code> con SHA‑1 e dello scambio di chiavi <code>diffie-hellman-group-exchange-sha256</code>, che dal 13 gennaio 2027 saranno tolti per sempre. Basta un client con RSA e SHA‑2, come OpenSSH 7.2p1 o più recente, senza rifare le chiavi; chi non può aggiornare può usare una chiave Ed25519 o ECDSA. I remote <code>https://</code> non sono toccati.</span></li>
+</ol></section><section id="fonti" class="sez"><h2 data-r="" id="fonti">Fonti</h2><div class="fonti" data-r="">
+<p>GitHub Status, GitHub Blog, documentazione di GitHub e di Git, Microsoft; Stack Overflow, Hacker News, GitHub Community; The Register, InfoWorld, BleepingComputer, Android Authority, LeadDev.</p>
+<p class="metodo"><b>Come si contano i guasti.</b> Sono gli incidenti pubblicati sulla status page, cominciati tra il
+26 ottobre e il 4 novembre, su Git, API, Actions, webhook, Pages, pull request o issue; restano fuori i cinque che
+toccano solo Copilot o Dependabot. Il conto dell'anno, dal 5 novembre 2025 al 4 novembre 2026, li comprende tutti.
+Orari in ora italiana.</p>
+</div></section><section id="pdf" class="sez"><h2 data-r="" id="il-carosello">Il carosello</h2><div class="allegati"><div class="pdf" data-r=""><span class="ico"><i class="ph ph-cards"></i><small>PDF</small></span><div><h3 id="i-guasti-di-github">I guasti di GitHub</h3><p class="m">carosello LinkedIn, 13 slide</p></div><div class="bott"><a class="btn secondo" href="/c/github-2026-11/github-2026-11-carosello-it.pdf" download><i class="ph ph-download-simple"></i><span>Scarica</span></a></div></div></div><p class="chiusa" data-r="">Quando GitHub pubblicherà le cause, questa pagina sarà aggiornata.</p></section></div></main><footer class="piede"><div class="wrap"><span>© 2026 Teodoro Corbo</span><a href="/#analisi" style="color:inherit">Tutte le analisi</a></div></footer><script type="module" src="/_astro/Base.astro_astro_type_script_index_0_lang.DtKjPNzE.js"></script></body></html>
